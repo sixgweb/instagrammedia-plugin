@@ -1,0 +1,12 @@
+name: Instagram Media
+form: ~/plugins/sixgweb/instagrammedia/models/media/fields.yaml
+modelClass: Sixgweb\InstagramMedia\Models\Media
+
+create:
+    title: Create Media
+    
+update:
+    title: Edit Media
+    
+preview:
+    title: View Media

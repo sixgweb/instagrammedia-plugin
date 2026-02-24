@@ -1,0 +1,64 @@
+<?php
+$settings = Sixgweb\InstagramMedia\Models\Settings::instance();
+$hasToken = !empty($settings->get('access_token'));
+$hasCredentials = !empty($settings->get('app_id')) && !empty($settings->get('app_secret'));
+$authorizeUrl = Backend::url('sixgweb/instagrammedia/oauth/authorize');
+$refreshUrl = Backend::url('sixgweb/instagrammedia/oauth/refresh');
+$disconnectUrl = Backend::url('sixgweb/instagrammedia/oauth/disconnect');
+?>
+
+<div class="oauth-buttons-container" style="margin: 15px 0;">
+    <?php if (!$hasToken): ?>
+        <?php if ($hasCredentials): ?>
+            <a href="<?= $authorizeUrl ?>" class="btn btn-primary btn-lg">
+                <i class="icon-instagram"></i>
+                Connect Instagram Account
+            </a>
+            <p class="help-block" style="margin-top: 10px;">
+                You'll be redirected to Instagram to authorize this app. After authorization, 
+                your access token will be automatically generated and saved.
+            </p>
+        <?php else: ?>
+            <button type="button" class="btn btn-primary btn-lg" disabled>
+                <i class="icon-instagram"></i>
+                Connect Instagram Account
+            </button>
+            <p class="help-block text-warning" style="margin-top: 10px;">
+                <i class="icon-warning"></i>
+                Please enter your App ID and App Secret below, then save settings before connecting.
+            </p>
+        <?php endif; ?>
+    <?php else: ?>
+        <div class="btn-group" role="group">
+            <a href="<?= $refreshUrl ?>" 
+               class="btn btn-success"
+               onclick="return confirm('Refresh your access token? This will extend it for another 60 days.')">
+                <i class="icon-refresh"></i>
+                Refresh Token
+            </a>
+            
+            <a href="<?= $disconnectUrl ?>" 
+               class="btn btn-danger"
+               onclick="return confirm('Disconnect your Instagram account? You will need to re-authorize to sync media again.')">
+                <i class="icon-unlink"></i>
+                Disconnect
+            </a>
+        </div>
+        
+        <p class="help-block" style="margin-top: 10px;">
+            <strong>Refresh Token:</strong> Extends your access token for another 60 days (recommended before expiry).<br>
+            <strong>Disconnect:</strong> Removes the access token and disconnects your Instagram account.
+        </p>
+    <?php endif; ?>
+</div>
+
+<style>
+.oauth-buttons-container .btn-lg {
+    font-size: 16px;
+    padding: 12px 24px;
+}
+.oauth-buttons-container .btn-group {
+    display: inline-flex;
+    gap: 10px;
+}
+</style>

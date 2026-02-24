@@ -1,0 +1,50 @@
+<?php
+$settings = Sixgweb\InstagramMedia\Models\Settings::instance();
+$hasToken = !empty($settings->get('access_token'));
+$expiresAt = $settings->get('token_expires_at');
+$username = $settings->get('username');
+$lastRefresh = $settings->get('last_token_refresh');
+?>
+
+<?php if ($hasToken && $expiresAt): ?>
+    <div class="callout callout-success">
+        <div class="header">
+            <i class="icon-check-circle"></i>
+            <h3>Connected to Instagram</h3>
+        </div>
+        <div class="content">
+            <?php if ($username): ?>
+                <p><strong>Account:</strong> @<?= e($username) ?></p>
+            <?php endif; ?>
+            
+            <p><strong>Token Expires:</strong> <?= $expiresAt->format('F j, Y g:i A') ?>
+                <span class="text-muted">(<?= $expiresAt->diffForHumans() ?>)</span>
+            </p>
+            
+            <?php if ($lastRefresh): ?>
+                <p><strong>Last Refreshed:</strong> <?= $lastRefresh->diffForHumans() ?></p>
+            <?php endif; ?>
+            
+            <?php
+            $daysUntilExpiry = $expiresAt->diffInDays(\Carbon\Carbon::now(), false);
+            if ($daysUntilExpiry <= 7 && $daysUntilExpiry >= 0):
+            ?>
+                <div class="alert alert-warning mt-2">
+                    <i class="icon-warning"></i>
+                    Token expires in <?= $daysUntilExpiry ?> days. Consider refreshing it soon.
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php else: ?>
+    <div class="callout callout-warning">
+        <div class="header">
+            <i class="icon-warning"></i>
+            <h3>Not Connected</h3>
+        </div>
+        <div class="content">
+            <p>Connect your Instagram account using OAuth to start syncing media.</p>
+            <p class="text-muted"><small>Make sure you've entered your App ID and App Secret below first.</small></p>
+        </div>
+    </div>
+<?php endif; ?>

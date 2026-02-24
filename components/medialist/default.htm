@@ -1,0 +1,89 @@
+<div class="instagram-media-list instagram-media-{{ __SELF__.displayType }}">
+    {% if instagramMedia.count %}
+        <div class="instagram-media-grid row g-3">
+            {% for item in instagramMedia %}
+                <div class="instagram-media-item col-12 col-sm-6 col-md-4 col-lg-3">
+                    <a href="{{ item.permalink }}" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       class="instagram-media-link d-block position-relative">
+                        
+                        {% if item.media_type == 'VIDEO' %}
+                            <div class="instagram-media-video-indicator position-absolute top-0 end-0 m-2">
+                                <i class="bi bi-play-circle-fill text-white fs-3"></i>
+                            </div>
+                        {% endif %}
+                        
+                        {% if item.media_type == 'CAROUSEL_ALBUM' %}
+                            <div class="instagram-media-carousel-indicator position-absolute top-0 end-0 m-2">
+                                <i class="bi bi-images text-white fs-3"></i>
+                            </div>
+                        {% endif %}
+                        
+                        <img 
+                            src="{{ item.thumbnail_url ?: item.media_url }}" 
+                            alt="{{ item.caption|striptags|slice(0, 100) }}"
+                            class="img-fluid w-100 instagram-media-image"
+                            loading="lazy"
+                        >
+
+                        <div class="instagram-media-overlay position-absolute bottom-0 start-0 w-100 p-3 text-white">
+                            {% if item.caption %}
+                                <p class="instagram-media-caption mb-2 small">
+                                    {{ item.caption|striptags|slice(0, 100) }}{% if item.caption|length > 100 %}...{% endif %}
+                                </p>
+                            {% endif %}
+                            
+                            <div class="instagram-media-stats d-flex gap-3 small">
+                                <span>
+                                    <i class="bi bi-heart-fill"></i> {{ item.like_count }}
+                                </span>
+                                <span>
+                                    <i class="bi bi-chat-fill"></i> {{ item.comments_count }}
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-muted">No Instagram media available.</p>
+    {% endif %}
+</div>
+
+<div class="text-center my-4">
+<a href="https://www.instagram.com/{{ instagramMedia.first.username }}/" target="_blank" rel="noopener noreferrer" class="btn btn-warning">View @{{ instagramMedia.first.username }} Instagram</a>
+</div>
+
+
+<style>
+.instagram-media-link {
+    overflow: hidden;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.instagram-media-link:hover {
+    transform: scale(1.05);
+}
+
+.instagram-media-image {
+    aspect-ratio: 1;
+    object-fit: cover;
+}
+
+.instagram-media-overlay {
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.instagram-media-link:hover .instagram-media-overlay {
+    opacity: 1;
+}
+
+.instagram-media-caption {
+    line-height: 1.4;
+}
+</style>

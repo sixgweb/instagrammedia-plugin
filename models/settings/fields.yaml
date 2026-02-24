@@ -1,0 +1,140 @@
+tabs:
+    fields:
+        _credentials_warning:
+            type: partial
+            path: $/sixgweb/instagrammedia/models/settings/_warning_credentials.htm
+            tab: API Configuration
+            hidden: true
+
+        _token_expired_warning:
+            type: partial
+            path: $/sixgweb/instagrammedia/models/settings/_warning_expired.htm
+            tab: API Configuration
+            hidden: true
+
+        _oauth_section:
+            type: section
+            label: OAuth Authorization (Recommended)
+            tab: API Configuration
+            comment: Use OAuth for easy setup and automatic token management
+
+        _oauth_status:
+            type: partial
+            path: $/sixgweb/instagrammedia/models/settings/_oauth_status.htm
+            tab: API Configuration
+
+        _oauth_buttons:
+            type: partial
+            path: $/sixgweb/instagrammedia/models/settings/_oauth_buttons.htm
+            tab: API Configuration
+
+        _manual_section:
+            type: section
+            label: Manual Configuration (Advanced)
+            tab: API Configuration
+            comment: Configure credentials manually or view OAuth-generated tokens
+
+        app_id:
+            label: Instagram App ID
+            type: text
+            tab: API Configuration
+            comment: Your Instagram App ID from Meta for Developers
+            placeholder: '1234567890123456'
+            required: true
+
+        app_secret:
+            label: Instagram App Secret
+            type: sensitive
+            tab: API Configuration
+            comment: Your Instagram App Secret (will be encrypted)
+            placeholder: Enter your app secret
+            required: true
+
+        access_token:
+            label: Access Token
+            type: sensitive
+            size: small
+            tab: API Configuration
+            comment: Long-lived Instagram User Access Token (auto-filled via OAuth)
+            placeholder: Generated via OAuth or paste manually
+
+        token_expires_at:
+            label: Token Expires At
+            type: datepicker
+            mode: datetime
+            tab: API Configuration
+            comment: When the access token expires (auto-set via OAuth)
+
+        last_token_refresh:
+            label: Last Token Refresh
+            type: datepicker
+            mode: datetime
+            tab: API Configuration
+            comment: When the token was last refreshed
+
+        username:
+            label: Instagram Username
+            type: text
+            tab: API Configuration
+            comment: The Instagram username being tracked
+
+        _sync_section:
+            type: section
+            label: Sync Configuration
+            tab: Sync Settings
+
+        auto_sync_enabled:
+            label: Enable Auto Sync
+            type: checkbox
+            default: false
+            tab: Sync Settings
+            comment: Automatically sync media on a schedule
+
+        sync_frequency:
+            label: Sync Frequency
+            type: dropdown
+            tab: Sync Settings
+            default: daily
+            options:
+                hourly: Every Hour
+                daily: Daily
+                weekly: Weekly
+            trigger:
+                action: show
+                field: auto_sync_enabled
+                condition: checked
+
+        media_limit:
+            label: Media Limit
+            type: number
+            default: 25
+            tab: Sync Settings
+            comment: Maximum number of media items to fetch per sync (max 100)
+            
+        auto_hide_old_media:
+            label: Auto-hide Old Media
+            type: checkbox
+            default: false
+            tab: Sync Settings
+            comment: Automatically hide media older than specified days
+
+        hide_after_days:
+            label: Hide After Days
+            type: number
+            default: 30
+            tab: Sync Settings
+            comment: Hide media older than this many days
+            trigger:
+                action: show
+                field: auto_hide_old_media
+                condition: checked
+
+        _instructions_section:
+            type: section
+            label: Setup Instructions
+            tab: Help
+
+        _instructions:
+            type: partial
+            path: $/sixgweb/instagrammedia/models/settings/_instructions.htm
+            tab: Help

@@ -1,0 +1,64 @@
+<div class="callout callout-info">
+    <div class="header">
+        <h3>Setup Instructions</h3>
+    </div>
+    <div class="content">
+        <h4>Quick Setup with OAuth (Recommended)</h4>
+        <ol>
+            <li>Go to <a href="https://developers.facebook.com/apps/" target="_blank">Meta for Developers</a></li>
+            <li>Create a new app (Business type)</li>
+            <li>Add the <strong>Instagram Basic Display</strong> product</li>
+            <li>In Basic Display settings, add OAuth Redirect URI:
+                <pre><?= Backend::url('sixgweb/instagrammedia/oauth/callback') ?></pre>
+            </li>
+            <li>Copy your <strong>Instagram App ID</strong> and <strong>App Secret</strong></li>
+            <li>Paste them in the fields above and <strong>Save</strong></li>
+            <li>Click "<strong>Connect Instagram Account</strong>" button</li>
+            <li>Authorize on Instagram and you're done!</li>
+        </ol>
+
+        <div class="alert alert-success">
+            <i class="icon-check"></i>
+            <strong>OAuth handles everything:</strong> Token generation, exchange for long-lived token, 
+            automatic refresh, and username detection. No manual token management needed!
+        </div>
+
+        <h4>Manual Setup (Advanced)</h4>
+        <p>If you prefer manual configuration:</p>
+        <ol>
+            <li>In your Meta App, go to Instagram Basic Display → Basic Display</li>
+            <li>Add an Instagram Test User</li>
+            <li>Generate a User Token for the test user</li>
+            <li>Exchange the short-lived token for a long-lived token (60 days):
+                <pre>https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret={app-secret}&access_token={short-lived-token}</pre>
+            </li>
+            <li>Paste the long-lived token in the Access Token field above</li>
+            <li>Set the expiration date (60 days from token generation)</li>
+        </ol>
+
+        <h4>Syncing Media</h4>
+        <p>After connecting, sync your Instagram media:</p>
+        <ul>
+            <li><strong>Manual Sync:</strong> Backend → Instagram Media → "Sync from Instagram" button</li>
+            <li><strong>Command Line:</strong> <code>php artisan instagrammedia:sync</code></li>
+            <li><strong>Automatic:</strong> Enable "Auto Sync" in the Sync Settings tab</li>
+        </ul>
+
+        <h4>Token Management</h4>
+        <p><strong>Automatic Refresh:</strong> The plugin automatically refreshes tokens daily when they're within 7 days of expiry.</p>
+        <p><strong>Manual Refresh:</strong> Click "Refresh Token" button or run:</p>
+        <pre>php artisan instagrammedia:refresh-token</pre>
+        
+        <p><strong>Note:</strong> Long-lived tokens last 60 days. Refreshing extends them for another 60 days.</p>
+
+        <h4>Scheduled Tasks</h4>
+        <p>Make sure your cron is configured for automatic operations:</p>
+        <pre>* * * * * cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>&1</pre>
+        
+        <p>This enables:</p>
+        <ul>
+            <li>Automatic token refresh (daily check)</li>
+            <li>Automatic media sync (if enabled)</li>
+        </ul>
+    </div>
+</div>

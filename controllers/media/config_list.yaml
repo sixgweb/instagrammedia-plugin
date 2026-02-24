@@ -1,0 +1,18 @@
+title: Instagram Media
+modelClass: Sixgweb\InstagramMedia\Models\Media
+list: $/sixgweb/instagrammedia/models/media/columns.yaml
+
+recordUrl: sixgweb/instagrammedia/media/update/:id
+noRecordsMessage: backend::lang.list.no_records
+recordsPerPage: 20
+showPageNumbers: true
+defaultSort:
+    column: timestamp
+    direction: desc
+
+showCheckboxes: true
+
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: backend::lang.list.search_prompt

@@ -1,0 +1,66 @@
+fields:
+    instagram_id:
+        label: Instagram ID
+        type: text
+        disabled: true
+        span: left
+        
+    media_type:
+        label: Media Type
+        type: dropdown
+        options:
+            IMAGE: Image
+            VIDEO: Video
+            CAROUSEL_ALBUM: Carousel
+        span: right
+        
+    username:
+        label: Username
+        type: text
+        disabled: true
+        span: left
+        
+    timestamp:
+        label: Posted Date
+        type: datepicker
+        mode: datetime
+        disabled: true
+        span: right
+        
+    media_url:
+        label: Media URL
+        type: text
+        disabled: true
+        
+    thumbnail_url:
+        label: Thumbnail URL
+        type: text
+        disabled: true
+        
+    permalink:
+        label: Instagram Link
+        type: text
+        disabled: true
+        
+    caption:
+        label: Caption
+        type: textarea
+        size: large
+        
+    like_count:
+        label: Likes
+        type: number
+        disabled: true
+        span: left
+        
+    comments_count:
+        label: Comments
+        type: number
+        disabled: true
+        span: right
+        
+    is_visible:
+        label: Display on Website
+        type: checkbox
+        default: true
+        comment: Uncheck to hide this media from frontend display

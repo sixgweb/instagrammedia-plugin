@@ -1,0 +1,7 @@
+<?php if ($record->thumbnail_url || $record->media_url): ?>
+    <img 
+        src="<?= e($record->thumbnail_url ?: $record->media_url) ?>" 
+        alt="Instagram Media" 
+        style="max-width: 60px; max-height: 60px; object-fit: cover; border-radius: 4px;"
+    >
+<?php endif; ?>
