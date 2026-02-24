@@ -1,0 +1,8 @@
+{
+    "name": "sixgweb/instagrammedia-plugin",
+    "type": "october-plugin",
+    "description": "Show media from an Instagram account.",
+    "require": {
+        "composer/installers": "~1.0"
+    }
+}
