@@ -1,6 +1,6 @@
 <div data-control="toolbar loader-container">
     <a
-        href="<?= Backend::url('sixgweb/clubready/packages/create') ?>"
+        href="<?= Backend::url('sixgweb/instagrammedia/media/create') ?>"
         class="btn btn-primary">
         <i class="icon-plus"></i>
         <?= __("New :name", ['name' => 'Media']) ?>
